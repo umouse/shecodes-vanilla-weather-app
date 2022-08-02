@@ -10,6 +10,9 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <link rel="stylesheet" href="src/styles.css" />
     <title>Weather app</title>
   </head>
@@ -17,10 +20,10 @@
     <div class="container">
       <div class="weather-app">
         <div class="overview">
-          <h1>Berlin</h1>
+          <h1 id="city"></h1>
           <ul>
-            <li>Monday 17:00</li>
-            <li>Cloudy</li>
+            <li>Last updated in: <span id="date"></span></li>
+            <li id="description"></li>
           </ul>
         </div>
         <div class="row">
@@ -32,16 +35,15 @@
                 class="float-left"
               />
               <div class="float-left">
-                <strong>18</strong>
+                <strong id="temp"></strong>
                 <span class="units"> °C |<a href="#">°F</a> </span>
               </div>
             </div>
           </div>
           <div class="col-6">
             <ul>
-              <li>Precipatition: 25%;</li>
-              <li>Humidity: 70%;</li>
-              <li>Wind: 6 km/h;</li>
+              <li>Humidity: <span id="humidity"></span> %;</li>
+              <li>Wind: <span id="wind"></span> km/h;</li>
             </ul>
           </div>
         </div>
