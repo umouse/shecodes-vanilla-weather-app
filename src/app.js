@@ -31,7 +31,8 @@ function displayTemperarture(response){
     let date = document.querySelector("#date");
     let icon = document.querySelector("#icon");
 
-    temp.innerHTML = Math.round(response.data.main.temp);
+    tempC = response.data.main.temp
+    temp.innerHTML = Math.round(tempC);
     city.innerHTML = response.data.name;
     description.innerHTML = response.data.weather[0].description;
     humidity.innerHTML = response.data.main.humidity;
@@ -55,7 +56,33 @@ function processData(event){
     let cityInput = document.querySelector("#city-input");
     search(cityInput.value);
 }
+function displayTempF(event){
+    event.preventDefault();
+    celsius.classList.remove("active");
+    fahrenheit.classList.add("active");
+    let tempF =(tempC*9)/5+32;
+    let temp = document.querySelector("#temp");
+    temp.innerHTML = Math.round(tempF); 
+}
+
+function displayTempC(event){
+    event.preventDefault();
+    fahrenheit.classList.remove("active");
+    celsius.classList.add("active");
+    let temp = document.querySelector("#temp");
+    temp.innerHTML = Math.round(tempC); 
+
+}
+let tempC = null;
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit",processData);
+
+let fahrenheit = document.querySelector("#fahrenheit");
+fahrenheit.addEventListener("click",displayTempF);
+
+let celsius = document.querySelector("#celsius");
+celsius.addEventListener("click",displayTempC);
+
+search("Berlin");
 
