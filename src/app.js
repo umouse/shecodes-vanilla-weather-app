@@ -6,7 +6,7 @@ function formatDate(timestamp){
   }
     let mins = date.getMinutes();
     if (mins < 10) {
-    mins = `0${minutes}`;
+    mins = `0${mins}`;
   }
     let days = [
     "Sunday",

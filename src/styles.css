@@ -19,6 +19,10 @@ h1 {
     margin-bottom: 0;
     
 }
+small {
+    position: sticky;
+    text-align: center;
+}
 
 ul {
     padding: 0;
@@ -64,4 +68,21 @@ line-height: 1;
 }
 .weather-temp .active:hover {
     text-decoration: none;
+}
+.weather-forecast {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.wf-temp-max{
+    font-size: 13px;
+
+}
+.wf-temp-min{
+    font-size: 13px;   
+    opacity: 0.4;
+}
+.wf-date {
+    opacity: 0.6;
+    font-size: 16px;
 }
