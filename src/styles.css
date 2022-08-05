@@ -1,14 +1,26 @@
+body {
+background-size: 100%;
+background-image: url("media/clouds.jpg");
+}
 .container {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Grenze Gotisch', Helvetica, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 25vh;
+
 }
 
 .weather-app{
-    max-width: 600px;
-    margin:  30px auto;
     padding: 20px;
     border: 1px solid #dadada;
     border-radius: 5px;
     margin-bottom: 0;
+    background-color: #fff;
+
+    
+}
+.metrics, .overview {
+    display: none;
 }
 
 h1 {
@@ -20,9 +32,16 @@ h1 {
     
 }
 small{
-    text-align: center;
+    color:#fff;
 }
 
+a {
+    color: #EC6E4B;
+}
+
+a:hover {
+   color: rgb(211, 65, 25);
+}
 
 
 ul {

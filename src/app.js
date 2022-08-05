@@ -1,3 +1,29 @@
+function getCurrentLocation() {
+navigator.geolocation.getCurrentPosition(initialSearch);
+
+};
+
+function changeBackground(weatherDescription){
+
+    if (weatherDescription==="clear sky"
+        || weatherDescription==="thunderstorm"
+        || weatherDescription==="snow"
+        || weatherDescription==="mist"
+        || weatherDescription==="broken clouds"
+        ){
+        document.body.background = `src/media/${weatherDescription}.jpg`;
+    } else if (
+        weatherDescription === "few clouds" || weatherDescription === "scattered clouds"){
+        document.body.background = `src/media/clouds.jpg`;
+    } else if (
+        weatherDescription==="rain" || weatherDescription === "shower rain" || weatherDescription === "light rain"){
+        document.body.background = `src/media/rain.jpg`;
+    } else {
+        document.body.background =`src/media/clouds.jpg`
+    }
+   
+}
+
 function formatDate(timestamp){
     let date = new Date(timestamp)
     let hours = date.getHours();
@@ -70,6 +96,8 @@ function getForecast(coordinates){
 }
 
 function displayTemperarture(response){
+    let overview = document.querySelector(".overview")
+    let metrics = document.querySelector(".metrics");
     let temp = document.querySelector("#temp");
     let city = document.querySelector("#city");
     let description = document.querySelector("#description");
@@ -78,6 +106,8 @@ function displayTemperarture(response){
     let date = document.querySelector("#date");
     let icon = document.querySelector("#icon");
 
+
+    
     tempC = response.data.main.temp
     temp.innerHTML = Math.round(tempC);
     city.innerHTML = response.data.name;
@@ -89,11 +119,18 @@ function displayTemperarture(response){
         `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
         );
     icon.setAttribute("alt",response.data.weather[0].description);
+    overview.style.display = "block";
+    metrics.style.visibility = "block";
 
+    changeBackground(response.data.weather[0].description);
     getForecast(response.data.coord);
-    displayForecast();
 
+}
 
+function initialSearch(position){
+    let apiKey = "6f1ef73058d115e56afccee279259142";
+    let apiUrl =`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(displayTemperarture);
 }
 function search(city){
     let apiKey = "6f1ef73058d115e56afccee279259142";
@@ -135,5 +172,4 @@ fahrenheit.addEventListener("click",displayTempF);
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click",displayTempC);
 
-search("Berlin");
-
+getCurrentLocation()
