@@ -20,35 +20,47 @@ function formatDate(timestamp){
     let day = days[date.getDay()];
     return`${day} ${hours}:${minutes}`;
 }
-function displayForecast(){
+
+function formatDay(timestamp){
+    let date = new Date(timestamp * 1000);
+    let day = date.getDay()
+    let daysShort=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    return daysShort[day]
+
+
+}
+
+function displayForecast(response){
+    let forecastResponse = response.data.daily;
     let forecast = document.querySelector("#forecast");
     let forecastHTML= `<div class="row">`;
-    let days = ["Thu","Fri","Sat","Sun"];
 
-    days.forEach(function (day) {
+    forecastResponse.forEach(function (forecastDay,index) {
+        if (index < 6){
         forecastHTML = forecastHTML +
         `
         <div class="col-2">
             <div class="wf-date">
-              ${day}
+              ${formatDay(forecastDay.dt)}
             </div>  
             <img 
-            src="https://ssl.gstatic.com/onebox/weather/64/rain_s_cloudy.png"
-            alt=""
+            src="https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png"
+            alt="${forecastDay.weather[0].description}"
             width="40px"
-            />
+            
             <span class="wf-temp-max">
-              33°
+              ${Math.round(forecastDay.temp.max)}°
             </span>
             <span class="wf-temp-min">
-              25°
+              ${Math.round(forecastDay.temp.min)}°
             </span>
           </div>
-          `;  
+          `;
+        }  
     });
 
     forecastHTML = forecastHTML +`</div>`;
-    forecast.innerHTML = forecastHTML; 
+    forecast.innerHTML = forecastHTML;
 }
 
 function getForecast(coordinates){
