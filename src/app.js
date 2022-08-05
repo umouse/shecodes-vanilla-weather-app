@@ -3,10 +3,10 @@ function formatDate(timestamp){
     let hours = date.getHours();
     if (hours < 10) {
     hours = `0${hours}`;
-  }
-    let mins = date.getMinutes();
-    if (mins < 10) {
-    mins = `0${mins}`;
+  } 
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
   }
     let days = [
     "Sunday",
@@ -18,8 +18,43 @@ function formatDate(timestamp){
     "Saturday"
   ];
     let day = days[date.getDay()];
-    return`${day} ${hours}:${mins}`;
+    return`${day} ${hours}:${minutes}`;
+}
+function displayForecast(){
+    let forecast = document.querySelector("#forecast");
+    let forecastHTML= `<div class="row">`;
+    let days = ["Thu","Fri","Sat","Sun"];
 
+    days.forEach(function (day) {
+        forecastHTML = forecastHTML +
+        `
+        <div class="col-2">
+            <div class="wf-date">
+              ${day}
+            </div>  
+            <img 
+            src="https://ssl.gstatic.com/onebox/weather/64/rain_s_cloudy.png"
+            alt=""
+            width="40px"
+            />
+            <span class="wf-temp-max">
+              33°
+            </span>
+            <span class="wf-temp-min">
+              25°
+            </span>
+          </div>
+          `;  
+    });
+
+    forecastHTML = forecastHTML +`</div>`;
+    forecast.innerHTML = forecastHTML; 
+}
+
+function getForecast(coordinates){
+    let apiKey = "6f1ef73058d115e56afccee279259142";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(displayForecast)
 }
 
 function displayTemperarture(response){
@@ -42,6 +77,10 @@ function displayTemperarture(response){
         `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
         );
     icon.setAttribute("alt",response.data.weather[0].description);
+
+    getForecast(response.data.coord);
+    displayForecast();
+
 
 }
 function search(city){
