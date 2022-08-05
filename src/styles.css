@@ -20,7 +20,7 @@ background-image: url("media/clouds.jpg");
     
 }
 .metrics, .overview {
-    display: none;
+    visibility: hidden;
 }
 
 h1 {
